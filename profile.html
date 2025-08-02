@@ -4,8 +4,141 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="general.css" />
+    <link rel="stylesheet" href="profile.css" />
+
     <title>Student Profile</title>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+      <a href="#">
+        <img class="logo" alt="TeachNet logo" src="img/School-Logo.png" />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li><a class="main-nav-link" href="inedex.html">Home</a></li>
+          <li><a class="main-nav-link" href="courses.html">Courses</a></li>
+          <li><a class="main-nav-link" href="contact.html">Contact Us</a></li>
+          <li>
+            <a class="main-nav-link" href="profile.html">Profile</a>
+          </li>
+
+          <!-- <li>
+            <a class="main-nav-link nav-cta" href="profile.html">Profile</a>
+          </li> -->
+        </ul>
+      </nav>
+      <button class="btn-mobile-nav">
+        <ion-icon name="menu-outline" class="icon-mobile-nav"></ion-icon>
+        <ion-icon name="close-outline" class="icon-mobile-nav"></ion-icon>
+      </button>
+    </header>
+    <main>
+      <section class="profile-section">
+        <h1>Student Profile</h1>
+
+        <!-- Student Info -->
+        <div class="student-info">
+          <img
+            id="student-photo"
+            src="img/Hanifa.jpg"
+            alt="Student Photo"
+            class="profile-photo"
+          />
+          <div class="student-details">
+            <p>
+              <strong>Name:</strong>
+              <span id="student-name">Hanifa Tavassoli</span>
+            </p>
+            <p><strong>Age:</strong> <span id="student-age">20</span></p>
+            <p>
+              <strong>Grade:</strong> <span id="student-grade">Grade 10</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Contact Info Toggle -->
+        <div class="contact-info">
+          <button id="show-email-btn">Show Email</button>
+          <button id="show-phone-btn">Show Phone</button>
+          <button id="hide-contact-btn" style="display: none">
+            Hide Contact Info
+          </button>
+          <div id="contact-details" style="display: none">
+            <p id="student-email">
+              <strong>Email:</strong>
+              <span>shojaee487@gmail.com</span>
+            </p>
+            <p id="student-phone">
+              <strong>Phone:</strong>
+              <span>073-107-8337</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Update Status -->
+        <div class="status-update">
+          <h2>Update Status</h2>
+          <input
+            type="text"
+            id="status-input"
+            placeholder="Enter Status (Active/Suspended)"
+          />
+          <button id="update-status-btn">Update Status</button>
+          <p>Status: <span id="student-status">Active</span></p>
+        </div>
+      </section>
+    </main>
+    <script>
+      // =========================================== Student profile
+
+      // Show Email and Phone functionality
+      const showEmailBtn = document.getElementById("show-email-btn");
+      const showPhoneBtn = document.getElementById("show-phone-btn");
+      const hideContactBtn = document.getElementById("hide-contact-btn");
+      const contactDetails = document.getElementById("contact-details");
+
+      showEmailBtn.addEventListener("click", function () {
+        document.getElementById("student-email").style.display = "inline";
+        document.getElementById("student-phone").style.display = "none";
+
+        showEmailBtn.style.display = "none";
+        showPhoneBtn.style.display = "none";
+        hideContactBtn.style.display = "inline";
+        contactDetails.style.display = "block";
+      });
+
+      showPhoneBtn.addEventListener("click", function () {
+        document.getElementById("student-email").style.display = "none";
+        document.getElementById("student-phone").style.display = "inline";
+        showEmailBtn.style.display = "none";
+        showPhoneBtn.style.display = "none";
+        hideContactBtn.style.display = "inline";
+        contactDetails.style.display = "block";
+      });
+
+      hideContactBtn.addEventListener("click", function () {
+        contactDetails.style.display = "none";
+        showEmailBtn.style.display = "inline";
+        showPhoneBtn.style.display = "inline";
+        hideContactBtn.style.display = "none";
+      });
+
+      // Update Status functionality
+      const statusInput = document.getElementById("status-input");
+      const updateStatusBtn = document.getElementById("update-status-btn");
+      const studentStatus = document.getElementById("student-status");
+
+      updateStatusBtn.addEventListener("click", function () {
+        const newStatus = statusInput.value.trim();
+
+        if (newStatus === "") {
+          alert("Please enter a status (Active/Suspended).");
+        } else {
+          studentStatus.textContent = newStatus;
+          statusInput.value = ""; // Clear the input after updating the status
+        }
+      });
+    </script>
+  </body>
 </html>
