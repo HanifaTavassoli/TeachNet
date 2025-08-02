@@ -4,8 +4,155 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="general.css" />
+    <link rel="stylesheet" href="courses.css" />
     <script src="script.js" defer></script>
     <title>Courses</title>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+      <a href="#">
+        <img class="logo" alt="TeachNet logo" src="img/School-Logo.png" />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li><a class="main-nav-link" href="inedex.html">Home</a></li>
+          <li><a class="main-nav-link" href="courses.html">Courses</a></li>
+          <li><a class="main-nav-link" href="contact.html">Contact Us</a></li>
+          <li>
+            <a class="main-nav-link" href="profile.html">Profile</a>
+          </li>
+
+          <!-- <li>
+            <a class="main-nav-link nav-cta" href="profile.html">Profile</a>
+          </li> -->
+        </ul>
+      </nav>
+      <button class="btn-mobile-nav">
+        <ion-icon name="menu-outline" class="icon-mobile-nav"></ion-icon>
+        <ion-icon name="close-outline" class="icon-mobile-nav"></ion-icon>
+      </button>
+    </header>
+
+    <main>
+      <section class="courses-section">
+        <h1>Available Courses</h1>
+
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+          <button class="filter-btn" data-grade="10">Grade 10</button>
+          <button class="filter-btn" data-grade="11">Grade 11</button>
+        </div>
+
+        <!-- Course List -->
+        <ul id="courses-list"></ul>
+
+        <!-- Add Course Form -->
+        <h2>Add New Course</h2>
+        <form id="add-course-form">
+          <input
+            type="text"
+            id="course-name"
+            placeholder="Course Name"
+            required
+          />
+          <input
+            type="number"
+            id="course-grade"
+            placeholder="Grade"
+            min="10"
+            max="12"
+            required
+          />
+          <button type="submit">Add Course</button>
+        </form>
+      </section>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize courses array to store course data
+        let courses = [
+          { name: "Math", grade: 10 },
+          { name: "Science", grade: 11 },
+        ];
+
+        const coursesList = document.getElementById("courses-list");
+        const addCourseForm = document.getElementById("add-course-form");
+        const courseNameInput = document.getElementById("course-name");
+        const courseGradeInput = document.getElementById("course-grade");
+
+        // Function to render courses on the page
+        function renderCourses(filteredCourses = courses) {
+          coursesList.innerHTML = ""; // Clear the existing course list
+
+          filteredCourses.forEach((course) => {
+            // Create list item for each course
+            const li = document.createElement("li");
+            li.classList.add("course-item");
+            li.dataset.grade = course.grade;
+
+            // Add course name and grade to the list item
+            li.innerHTML = `
+        <p><strong>${course.name}</strong> - Grade ${course.grade}</p>
+        <button class="show-details-btn">Show Details</button>
+      `;
+
+            // Show course details when the button is clicked
+            const showDetailsBtn = li.querySelector(".show-details-btn");
+            showDetailsBtn.addEventListener("click", function () {
+              alert(`Course: ${course.name}\nGrade: ${course.grade}`);
+            });
+
+            // Append the list item to the course list
+            coursesList.appendChild(li);
+          });
+        }
+
+        // Render initial list of courses
+        renderCourses();
+
+        // Filter courses by grade
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const grade = button.dataset.grade;
+            const filteredCourses = courses.filter(
+              (course) => course.grade == grade
+            );
+            renderCourses(filteredCourses); // Render the filtered courses
+          });
+        });
+
+        // Add new course to the list
+        addCourseForm.addEventListener("submit", function (e) {
+          e.preventDefault(); // Prevent form from reloading the page
+
+          // Get the input values
+          const courseName = courseNameInput.value.trim();
+          const courseGrade = parseInt(courseGradeInput.value);
+
+          // Validate input
+          if (
+            courseName === "" ||
+            isNaN(courseGrade) ||
+            courseGrade < 10 ||
+            courseGrade > 12
+          ) {
+            alert("Please enter valid course name and grade (10-12).");
+            return;
+          }
+
+          // Add the new course to the array
+          courses.push({ name: courseName, grade: courseGrade });
+
+          // Clear the form inputs
+          courseNameInput.value = "";
+          courseGradeInput.value = "";
+
+          // Re-render the course list
+          renderCourses();
+        });
+      });
+    </script>
+  </body>
 </html>
