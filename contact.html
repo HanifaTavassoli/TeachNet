@@ -4,8 +4,94 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="general.css" />
+    <link rel="stylesheet" href="contact.css" />
     <title>Contact</title>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+      <a href="#">
+        <img class="logo" alt="TeachNet logo" src="img/School-Logo.png" />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li><a class="main-nav-link" href="inedex.html">Home</a></li>
+          <li><a class="main-nav-link" href="courses.html">Courses</a></li>
+          <li><a class="main-nav-link" href="contact.html">Contact Us</a></li>
+          <li>
+            <a class="main-nav-link" href="profile.html">Profile</a>
+          </li>
+
+          <!-- <li>
+            <a class="main-nav-link nav-cta" href="profile.html">Profile</a>
+          </li> -->
+        </ul>
+      </nav>
+      <button class="btn-mobile-nav">
+        <ion-icon name="menu-outline" class="icon-mobile-nav"></ion-icon>
+        <ion-icon name="close-outline" class="icon-mobile-nav"></ion-icon>
+      </button>
+    </header>
+    <main>
+      <section class="contact-section">
+        <h1>Contact Us</h1>
+
+        <!-- Contact Form -->
+        <form id="contact-form">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="Your Name"
+          />
+
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="Your Email"
+          />
+
+          <label for="message">Message:</label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            placeholder="Your Message"
+          ></textarea>
+
+          <button type="submit">Send Message</button>
+        </form>
+
+        <div id="confirmation-message" class="hidden">
+          <p>Thank you for contacting us! We will get back to you shortly.</p>
+        </div>
+      </section>
+    </main>
+    <script>
+      // ================================================ Contact form
+      const form = document.getElementById("contact-form");
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("message").value;
+
+        if (name === "" || email === "" || message === "") {
+          alert("please fill out all fields!");
+          return;
+        }
+
+        const confirmMessage = document.getElementById("confirmation-message");
+        confirmMessage.classList.remove("hidden");
+
+        document.getElementById("contact-form").reset();
+      });
+    </script>
+  </body>
 </html>
